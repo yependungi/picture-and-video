@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>잡브릿지 | 채용 운영 홈</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="잡브릿지 홈">
+          <span class="brand-mark">JB</span>
+          <span>
+            <strong>잡브릿지</strong>
+            <small>채용 운영 홈</small>
+          </span>
+        </a>
+
+        <nav class="section-tabs" aria-label="주요 메뉴">
+          <button class="tab-button active" type="button" data-section="resume">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M20 21a8 8 0 0 0-16 0" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            지원자
+          </button>
+          <button class="tab-button" type="button" data-section="posting">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M6 7V6a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1" />
+              <rect x="3" y="7" width="18" height="14" rx="2" />
+              <path d="M3 13h18" />
+            </svg>
+            기관 공고
+          </button>
+          <button class="tab-button" type="button" data-section="jobs">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            공고 탐색
+          </button>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="overview" aria-label="채용 현황">
+          <div class="overview-copy">
+            <span class="eyebrow">지원자와 기관을 잇는 채용 워크스페이스</span>
+            <h1>이력서 작성, 공고 등록, 지원 관리를 한 화면에서</h1>
+            <div class="metric-grid" aria-label="요약 지표">
+              <article class="metric">
+                <span id="metricJobs">0</span>
+                <small>활성 공고</small>
+              </article>
+              <article class="metric">
+                <span id="metricApplied">0</span>
+                <small>내 지원 표시</small>
+              </article>
+              <article class="metric">
+                <span id="metricResume">미완성</span>
+                <small>이력서</small>
+              </article>
+            </div>
+          </div>
+          <div class="overview-media">
+            <img src="assets/recruitment-dashboard.png" alt="채용 업무 보드 일러스트" />
+          </div>
+        </section>
+
+        <section class="workspace-section active" id="resume" aria-labelledby="resumeTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Applicant</span>
+              <h2 id="resumeTitle">지원자 이력서 입력</h2>
+            </div>
+            <span class="status-pill" id="resumeSavedState">저장 전</span>
+          </div>
+
+          <div class="tool-grid">
+            <form class="tool-panel" id="resumeForm">
+              <div class="form-grid">
+                <label>
+                  이름
+                  <input name="name" autocomplete="name" required placeholder="홍길동" />
+                </label>
+                <label>
+                  연락처
+                  <input name="phone" autocomplete="tel" placeholder="010-0000-0000" />
+                </label>
+                <label>
+                  이메일
+                  <input name="email" type="email" autocomplete="email" required placeholder="name@example.com" />
+                </label>
+                <label>
+                  희망 직무
+                  <input name="role" required placeholder="예: 프론트엔드 개발자" />
+                </label>
+                <label>
+                  경력
+                  <select name="experience">
+                    <option value="신입">신입</option>
+                    <option value="1-3년">1-3년</option>
+                    <option value="4-7년">4-7년</option>
+                    <option value="8년 이상">8년 이상</option>
+                  </select>
+                </label>
+                <label>
+                  근무 희망 지역
+                  <input name="location" placeholder="예: 서울, 원격" />
+                </label>
+                <label>
+                  보유 기술
+                  <input name="skills" placeholder="React, Excel, 상담, 기획" />
+                </label>
+                <label>
+                  포트폴리오
+                  <input name="portfolio" type="url" placeholder="https://..." />
+                </label>
+                <label class="wide">
+                  학력 및 주요 이력
+                  <textarea name="education" rows="3" placeholder="학교, 전공, 자격증, 프로젝트"></textarea>
+                </label>
+                <label class="wide">
+                  자기소개
+                  <textarea name="summary" rows="5" required placeholder="강점, 성과, 일하는 방식"></textarea>
+                </label>
+              </div>
+              <div class="button-row">
+                <button class="primary-button" type="submit">
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+                    <path d="M17 21v-8H7v8" />
+                    <path d="M7 3v5h8" />
+                  </svg>
+                  이력서 저장
+                </button>
+                <button class="ghost-button" type="button" id="loadSampleResume">
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M12 5v14" />
+                    <path d="m19 12-7 7-7-7" />
+                  </svg>
+                  예시 입력
+                </button>
+              </div>
+            </form>
+
+            <aside class="preview-panel" aria-label="이력서 미리보기">
+              <div class="preview-header">
+                <span>Resume Preview</span>
+                <strong id="previewName">이름</strong>
+              </div>
+              <dl class="resume-preview">
+                <div>
+                  <dt>희망 직무</dt>
+                  <dd id="previewRole">-</dd>
+                </div>
+                <div>
+                  <dt>연락</dt>
+                  <dd id="previewContact">-</dd>
+                </div>
+                <div>
+                  <dt>경력</dt>
+                  <dd id="previewExperience">-</dd>
+                </div>
+                <div>
+                  <dt>지역</dt>
+                  <dd id="previewLocation">-</dd>
+                </div>
+              </dl>
+              <div class="tag-list" id="previewSkills"></div>
+              <p class="preview-summary" id="previewSummary">입력한 자기소개가 이곳에 표시됩니다.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="workspace-section" id="posting" aria-labelledby="postingTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Recruiter</span>
+              <h2 id="postingTitle">채용 기관 모집공고 등록</h2>
+            </div>
+            <span class="status-pill" id="postingSavedState">등록 대기</span>
+          </div>
+
+          <div class="tool-grid">
+            <form class="tool-panel" id="postingForm">
+              <div class="form-grid">
+                <label>
+                  기관명
+                  <input name="organization" required placeholder="예: 서울디지털센터" />
+                </label>
+                <label>
+                  담당 부서
+                  <input name="department" placeholder="예: 인사운영팀" />
+                </label>
+                <label class="wide">
+                  모집 제목
+                  <input name="title" required placeholder="예: 웹 서비스 운영 매니저 채용" />
+                </label>
+                <label>
+                  고용 형태
+                  <select name="type">
+                    <option>정규직</option>
+                    <option>계약직</option>
+                    <option>인턴</option>
+                    <option>파트타임</option>
+                  </select>
+                </label>
+                <label>
+                  근무 방식
+                  <select name="mode">
+                    <option>출근</option>
+                    <option>하이브리드</option>
+                    <option>원격</option>
+                  </select>
+                </label>
+                <label>
+                  근무 지역
+                  <input name="region" required placeholder="예: 서울 성동구" />
+                </label>
+                <label>
+                  마감일
+                  <input name="deadline" type="date" required />
+                </label>
+                <label>
+                  급여
+                  <input name="salary" placeholder="예: 회사 내규 / 연 4,500만원" />
+                </label>
+                <label>
+                  필요 역량
+                  <input name="skills" placeholder="서비스 운영, SQL, 고객응대" />
+                </label>
+                <label class="wide">
+                  모집 내용
+                  <textarea name="description" rows="5" required placeholder="담당 업무, 자격 요건, 전형 절차"></textarea>
+                </label>
+              </div>
+              <div class="button-row">
+                <button class="primary-button" type="submit">
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                  </svg>
+                  공고 등록
+                </button>
+                <button class="ghost-button" type="reset">
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M3 12a9 9 0 1 0 3-6.7" />
+                    <path d="M3 3v6h6" />
+                  </svg>
+                  초기화
+                </button>
+              </div>
+            </form>
+
+            <aside class="preview-panel" aria-label="최근 등록 공고">
+              <div class="preview-header">
+                <span>Latest Posting</span>
+                <strong id="latestPostingTitle">등록된 공고</strong>
+              </div>
+              <p class="preview-summary" id="latestPostingSummary">기관 공고를 등록하면 이곳과 공고 탐색 목록에 반영됩니다.</p>
+              <div class="mini-list" id="latestPostingMeta"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="workspace-section" id="jobs" aria-labelledby="jobsTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Jobs</span>
+              <h2 id="jobsTitle">실제 모집공고 탐색</h2>
+            </div>
+            <div class="section-actions">
+              <span class="status-pill" id="jobCountState">0개 공고</span>
+              <button class="ghost-button compact" type="button" id="refreshJobs">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M3 12a9 9 0 0 1 15.1-6.6" />
+                  <path d="M18 3v5h-5" />
+                  <path d="M21 12a9 9 0 0 1-15.1 6.6" />
+                  <path d="M6 21v-5h5" />
+                </svg>
+                새로고침
+              </button>
+            </div>
+          </div>
+
+          <div class="source-strip">
+            <div>
+              <strong id="jobSourceState">Arbeitnow API 연결 준비</strong>
+              <span id="jobFeedMeta">온라인이면 최신 공고를 불러오고, 실패하면 실제 공고 스냅샷을 표시합니다.</span>
+            </div>
+            <a class="source-link" href="https://www.arbeitnow.com/api/job-board-api" target="_blank" rel="noreferrer">
+              API 보기
+            </a>
+          </div>
+
+          <div class="filter-bar" aria-label="공고 필터">
+            <label>
+              검색
+              <input id="searchInput" type="search" placeholder="직무, 회사, 지역, 기술" />
+            </label>
+            <label>
+              고용 형태
+              <select id="typeFilter">
+                <option value="">전체</option>
+                <option>정규직</option>
+                <option>계약직</option>
+                <option>경력</option>
+                <option>신입</option>
+                <option>인턴</option>
+                <option>학생</option>
+                <option>파트타임</option>
+                <option>기타</option>
+              </select>
+            </label>
+            <label>
+              근무 방식
+              <select id="modeFilter">
+                <option value="">전체</option>
+                <option>출근</option>
+                <option>하이브리드</option>
+                <option>원격</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="job-list" id="jobList" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="jobCardTemplate">
+      <article class="job-card">
+        <div class="job-card-top">
+          <span class="job-source"></span>
+          <span class="job-deadline"></span>
+        </div>
+        <h3></h3>
+        <p class="job-org"></p>
+        <p class="job-desc"></p>
+        <div class="job-meta"></div>
+        <div class="tag-list"></div>
+        <div class="button-row">
+          <button class="primary-button compact" type="button" data-apply>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            지원 표시
+          </button>
+          <a class="ghost-button compact source-link" target="_blank" rel="noreferrer" data-original>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M15 3h6v6" />
+              <path d="M10 14 21 3" />
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            </svg>
+            원문 보기
+          </a>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
